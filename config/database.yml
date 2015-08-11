@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: development
+  username: pguser
+  password: pguser_password
+  host: localhost

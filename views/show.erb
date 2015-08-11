@@ -1,0 +1,14 @@
+<% if @message %>
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <%= @message %>
+  </div>
+<% end %>
+
+<p><%= @member.name %></p>
+<a href="/members/<%= @member.id %>/edit">Edit</a>
+<a href="/members/<%= @member.id %>/delete"> | Delete</a>
+</br>
+<a href="/members"><< Back to all particiants</a>
+
