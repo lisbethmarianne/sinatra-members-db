@@ -1,6 +1,14 @@
 <h1>Ruby Monstas at Eurucamp 2015</h1>
 <h2>List of Participants</h2>
 
+<% if @message %>
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <%= @message %>
+  </div>
+<% end %>
+
 <ul>
   <% @members.each do |member| %>
     <li>
