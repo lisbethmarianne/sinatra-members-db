@@ -34,7 +34,7 @@ enable :sessions
 
 get '/members' do
   @message = session.delete(:message)
-  @members = Member.all
+  @members = Member.all.order(:name)
   erb :index
 end
 
