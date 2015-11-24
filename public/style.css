@@ -56,6 +56,12 @@ input {
   background-color: #e2e2e2;
 }
 
+.alert-info {
+  background-color: #f7e9bd;
+  border-color: #e8cf7d;
+  color: #727272;
+}
+
 #create_new {
   color: #ee4444;
   text-decoration: underline;
