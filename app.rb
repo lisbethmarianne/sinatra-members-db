@@ -2,6 +2,9 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './config/environments' # database configuration
 require './models/member'
+require 'dotenv'
+
+Dotenv.load
 
 class NameValidator
   def initialize(name, names)
@@ -30,7 +33,25 @@ class NameValidator
     end
 end
 
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV['MEMBERS_USERNAME'], ENV['MEMBERS_PASSWORD']]
+  end
+end
+
 enable :sessions
+
+get '/login' do
+  protected!
+  redirect to('/members')
+end
 
 get '/members' do
   @message = session.delete(:message)
@@ -39,12 +60,14 @@ get '/members' do
 end
 
 get '/members/new' do
+  protected!
   @message = session.delete(:message)
   @member = Member.new
   erb :new
 end
 
 post '/members' do
+  protected!
   @name = params[:name]
   @members = Member.all
   @names = []
@@ -72,11 +95,13 @@ get '/members/:id' do
 end
 
 get '/members/:id/edit' do
+  protected!
   @member = Member.find(params[:id])
   erb :edit
 end
 
 put '/members/:id' do
+  protected!
   @name = params[:name]
   @members = Member.all
   @names = []
@@ -98,11 +123,13 @@ put '/members/:id' do
 end
 
 get "/members/:id/delete" do
+  protected!
   @member = Member.find(params[:id])
   erb :delete
 end
 
 delete '/members/:id' do
+  protected!
   @member = Member.find(params[:id])
   @member.delete
   session[:message] = "Successfully deleted."

@@ -7,8 +7,10 @@
 <% end %>
 
 <p><%= @member.name %></p>
-<a href="/members/<%= @member.id %>/edit">Edit</a>
-<a href="/members/<%= @member.id %>/delete"> | Delete</a>
+<% if authorized? %>
+  <a href="/members/<%= @member.id %>/edit">Edit</a>
+  <a href="/members/<%= @member.id %>/delete"> | Delete</a>
+<% end %>
 </br>
 <a href="/members"><< Back to all particiants</a>
 
