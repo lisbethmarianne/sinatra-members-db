@@ -48,6 +48,10 @@ end
 
 enable :sessions
 
+get '/' do
+  redirect to('/members')
+end
+
 get '/login' do
   protected!
   redirect to('/members')
