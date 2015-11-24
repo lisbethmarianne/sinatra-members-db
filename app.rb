@@ -2,9 +2,11 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './config/environments' # database configuration
 require './models/member'
-require 'dotenv'
 
-Dotenv.load
+if Sinatra::Base.environment == :development
+  require 'dotenv'
+  Dotenv.load
+end
 
 class NameValidator
   def initialize(name, names)
