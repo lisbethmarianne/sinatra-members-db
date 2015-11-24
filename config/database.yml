@@ -4,3 +4,6 @@ development:
   username: pguser
   password: pguser_password
   host: localhost
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
